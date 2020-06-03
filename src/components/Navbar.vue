@@ -5,11 +5,25 @@
 
       <div class="collpase navbar-collapse">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Login</a>
-          </li>
+          <!-- <li class="nav-item active"> -->
+          <router-link
+            to="/login"
+            class="nav-item"
+            exact-active-class="active"
+            tag="li"
+            ><a class="nav-link">Login</a></router-link
+          >
+          <!-- <a class="nav-link" href="#">Login</a> -->
+          <!-- </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#">Register</a>
+            <router-link
+              to="/register"
+              class="nav-item"
+              exact-active-class="active"
+              tag="li"
+              ><a class="nav-link">Register</a></router-link
+            >
+            <!-- <a class="nav-link" href="#">Register</a> -->
           </li>
         </ul>
       </div>

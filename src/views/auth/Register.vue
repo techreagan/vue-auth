@@ -2,13 +2,20 @@
   <div id="login">
     <form class="form-signin">
       <div class="text-cener mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-        <!-- <p>
-          Build form controls with floating labels via the
-          <code>:placeholder-shown</code> pseudo-element.
-        </p> -->
+        <h1 class="h3 mb-3 font-weight-normal">Register</h1>
       </div>
 
+      <div class="form-label-group">
+        <input
+          type="text"
+          id="inputName"
+          class="form-control"
+          placeholder="Name"
+          required
+          autofocus
+        />
+        <label for="inputEmail">Name</label>
+      </div>
       <div class="form-label-group">
         <input
           type="email"
@@ -30,6 +37,16 @@
           required
         />
         <label for="inputPassword">Password</label>
+      </div>
+      <div class="form-label-group">
+        <input
+          type="password"
+          id="inputConfirmPassword"
+          class="form-control"
+          placeholder="Confirm Password"
+          required
+        />
+        <label for="inputConfirmPassword">Confirm Password</label>
       </div>
 
       <div class="checkbox mb-3">

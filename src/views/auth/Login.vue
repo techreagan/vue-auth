@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <form class="form-signin">
+    <form @submit.prevent="login" class="form-signin">
       <div class="text-cener mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
         <!-- <p>
@@ -8,7 +8,9 @@
           <code>:placeholder-shown</code> pseudo-element.
         </p> -->
       </div>
-
+      <div v-if="error" class="alert alert-danger">
+        {{ error }}
+      </div>
       <div class="form-label-group">
         <input
           type="email"
@@ -16,6 +18,7 @@
           class="form-control"
           placeholder="Email address"
           required
+          v-model="email"
           autofocus
         />
         <label for="inputEmail">Email address</label>
@@ -27,6 +30,7 @@
           id="inputPassword"
           class="form-control"
           placeholder="Password"
+          v-model="password"
           required
         />
         <label for="inputPassword">Password</label>
@@ -48,7 +52,30 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      error: null
+    }
+  },
+  methods: {
+    login() {
+      this.$store
+        .dispatch('login', {
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: 'Dashboard' })
+        })
+        .catch((err) => {
+          this.error = err.response.data.error
+        })
+    }
+  }
+}
 </script>
 
 <style>

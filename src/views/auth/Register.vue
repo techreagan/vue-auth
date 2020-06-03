@@ -1,16 +1,23 @@
 <template>
   <div id="login">
-    <form class="form-signin">
+    <form @submit.prevent="register" class="form-signin">
       <div class="text-cener mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Register</h1>
       </div>
-
+      <div v-if="errors" class="alert alert-danger">
+        <ul>
+          <li v-for="error in errors" :key="error.field">
+            {{ error.message }}
+          </li>
+        </ul>
+      </div>
       <div class="form-label-group">
         <input
           type="text"
           id="inputName"
           class="form-control"
           placeholder="Name"
+          v-model="name"
           required
           autofocus
         />
@@ -22,6 +29,7 @@
           id="inputEmail"
           class="form-control"
           placeholder="Email address"
+          v-model="email"
           required
           autofocus
         />
@@ -34,6 +42,7 @@
           id="inputPassword"
           class="form-control"
           placeholder="Password"
+          v-model="password"
           required
         />
         <label for="inputPassword">Password</label>
@@ -65,7 +74,32 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      errors: null
+    }
+  },
+  methods: {
+    register() {
+      this.$store
+        .dispatch('register', {
+          name: this.name,
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$router.push({ name: 'Dashboard' })
+        })
+        .catch((err) => {
+          this.errors = err.response.data.error
+        })
+    }
+  }
+}
 </script>
 
 <style>

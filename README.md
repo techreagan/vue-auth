@@ -11,6 +11,8 @@ Then put in your api URL
 VUE_APP_URL=http://localhost:3001
 ```
 
+## Install packages
+
 ```
 npm install
 ```

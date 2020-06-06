@@ -84,19 +84,40 @@ export default {
     }
   },
   methods: {
-    register() {
-      this.$store
+    // register() {
+    //   this.$store
+    //     .dispatch('register', {
+    //       name: this.name,
+    //       email: this.email,
+    //       password: this.password
+    //     })
+    //     .then(() => {
+    //       this.$router.push({ name: 'Dashboard' })
+    //     })
+    //     .catch((err) => {
+    //       this.errors = err.response.data.error
+    //     })
+    // }
+    async register() {
+      const data = await this.$store
         .dispatch('register', {
           name: this.name,
           email: this.email,
           password: this.password
         })
-        .then(() => {
-          this.$router.push({ name: 'Dashboard' })
-        })
         .catch((err) => {
           this.errors = err.response.data.error
         })
+
+      if (!data) return
+
+      const user = await this.$store
+        .dispatch('getCurrentUser', data.token)
+        .catch((err) => console.log(err))
+
+      if (!user) return
+
+      this.$router.push({ name: 'Dashboard' })
     }
   }
 }

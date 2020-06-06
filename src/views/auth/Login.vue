@@ -61,18 +61,25 @@ export default {
     }
   },
   methods: {
-    login() {
-      this.$store
+    async login() {
+      const data = await this.$store
         .dispatch('login', {
           email: this.email,
           password: this.password
         })
-        .then(() => {
-          this.$router.push({ name: 'Dashboard' })
-        })
         .catch((err) => {
           this.error = err.response.data.error
         })
+
+      if (!data) return
+
+      const user = await this.$store
+        .dispatch('getCurrentUser', data.token)
+        .catch((err) => console.log(err))
+
+      if (!user) return
+
+      this.$router.push({ name: 'Dashboard' })
     }
   }
 }

@@ -1,9 +1,38 @@
 <template>
-  <h1>Welcome to the APP</h1>
+  <div id="dashboard">
+    <h1 style="margin: auto">Welcome {{ name }}</h1>
+  </div>
 </template>
 
 <script>
-export default {}
+import AuthenticationService from '@/services/AuthenticationService'
+
+export default {
+  data() {
+    return {
+      name: ''
+    }
+  },
+  methods: {
+    async getUser() {
+      const user = await AuthenticationService.me(
+        localStorage.getItem('token')
+      ).catch((err) => {
+        console.log(err.response)
+      })
+      if (!user) return
+      this.name = user.data.data.name
+    }
+  },
+  mounted() {
+    this.getUser()
+  }
+}
 </script>
 
-<style></style>
+<style>
+#dashboard {
+  height: 100%;
+  display: flex;
+}
+</style>
